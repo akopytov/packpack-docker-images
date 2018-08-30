@@ -4,17 +4,8 @@ MAINTAINER Roman Tsisyk <roman@tarantool.org>
 # Fix missing locales
 ENV LC_ALL="C.UTF-8" LANG="C.UTF-8"
 
-# Upgrade Python3, so this does not happen:
-# https://bugzilla.redhat.com/show_bug.cgi?id=1435135
-RUN dnf -y upgrade python3
-
-# Enable extra repositories
-RUN dnf -y install \
-    wget \
-    curl \
-    pygpgme \
-    yum-utils
-#RUN curl -s https://packagecloud.io/install/repositories/packpack/backports/script.rpm.sh | bash
+# Temporary workaround for rawhide/current GPG keys madness
+RUN rpm --import https://src.fedoraproject.org/rpms/fedora-repos/raw/master/f/RPM-GPG-KEY-fedora-32-primary
 
 # Install base toolset
 RUN dnf -y group install 'Development Tools'
