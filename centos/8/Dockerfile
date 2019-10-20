@@ -17,9 +17,5 @@ RUN yum -y install \
     cmake \
     sudo
 
-# Install python2 for testing
-RUN dnf -y install python2
-RUN pip2 install gevent
-
 # Enable sudo without tty
 RUN sed -i.bak -n -e '/^Defaults.*requiretty/ { s/^/# /;};/^%wheel.*ALL$/ { s/^/# / ;} ;/^#.*wheel.*NOPASSWD/ { s/^#[ ]*//;};p' /etc/sudoers
